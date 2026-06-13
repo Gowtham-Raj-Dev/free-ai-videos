@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+
+  --color-accent: #a855f7;
+  --color-accent-2: #ec4899;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f9;
+  --fg: #0a0a0a;
+  --fg-muted: #5b5b66;
+  --border: rgba(10, 10, 15, 0.08);
+  --card: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(10, 10, 15, 0.08);
+  --glass-blur: 16px;
+  --glow: rgba(99, 102, 241, 0.35);
+}
+
+.dark {
+  --bg: #000000;
+  --bg-soft: #0a0a0c;
+  --fg: #fafafa;
+  --fg-muted: #a1a1aa;
+  --border: rgba(255, 255, 255, 0.08);
+  --card: rgba(20, 20, 24, 0.55);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --glow: rgba(168, 85, 247, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100dvh;
+  /* safe area aware bottom padding for mobile nav */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--color-brand-500);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--fg-muted);
+}
+
+@layer utilities {
+  .glass {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  }
+
+  .text-muted {
+    color: var(--fg-muted);
+  }
+
+  .text-foreground {
+    color: var(--fg);
+  }
+
+  .bg-app {
+    background: var(--bg);
+  }
+
+  .bg-soft {
+    background: var(--bg-soft);
+  }
+
+  .border-app {
+    border-color: var(--border);
+  }
+
+  .gradient-text {
+    background: linear-gradient(100deg,
+        var(--color-brand-400),
+        var(--color-accent) 50%,
+        var(--color-accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .gradient-brand {
+    background: linear-gradient(100deg,
+        var(--color-brand-500),
+        var(--color-accent) 55%,
+        var(--color-accent-2));
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .pt-safe {
+    padding-top: max(1.1rem, env(safe-area-inset-top));
+  }
+
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent);
+    mask-image: linear-gradient(to right, black 85%, transparent);
+  }
+}
+
+/* Ambient animated background */
+@keyframes float-slow {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(20px, -30px) scale(1.08);
+  }
+}
+
+@keyframes float-slow-2 {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-25px, 25px) scale(1.12);
+  }
+}
+
+.blob-1 {
+  animation: float-slow 14s ease-in-out infinite;
+}
+
+.blob-2 {
+  animation: float-slow-2 18s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+      var(--bg-soft) 25%,
+      var(--border) 37%,
+      var(--bg-soft) 63%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
