@@ -12,6 +12,7 @@ export interface GridQuery {
   q?: string;
   category?: string;
   sort?: string;
+  ids?: string;
 }
 
 export function PaginatedGrid({
@@ -46,6 +47,7 @@ export function PaginatedGrid({
         if (query.q) params.set("q", query.q);
         if (query.category) params.set("category", query.category);
         if (query.sort) params.set("sort", query.sort);
+        if (query.ids) params.set("ids", query.ids);
         const res = await fetch(`/api/videos?${params}`);
         const data = await res.json();
         setItems(data.items);

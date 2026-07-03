@@ -24,6 +24,8 @@ export interface VideoMeta {
   downloads: number;
   /** trending score used for sorting */
   score: number;
+  /** sequence index 001 to 050 */
+  index: number;
 }
 
 export interface CategoryMeta {
@@ -34,7 +36,7 @@ export interface CategoryMeta {
   title: string;
   description: string;
   seoContent: string;
-  emoji: string;
+  icon: string;
   count: number;
 }
 

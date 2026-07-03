@@ -142,10 +142,7 @@ export function VideoCard({
           <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 transition group-hover:ring-brand-400/40 z-10" />
 
           {/* top row */}
-          <div className="absolute inset-x-0 top-0 flex items-start justify-between p-2.5 z-20">
-            <span className="rounded-full bg-black/60 px-2 py-1 text-[10px] font-medium uppercase tracking-wide text-white/90">
-              {video.theme}
-            </span>
+          <div className="absolute inset-x-0 top-0 flex items-start justify-end p-2.5 z-20">
             <button
               type="button"
               aria-label={fav ? "Remove favorite" : "Add favorite"}
@@ -154,7 +151,7 @@ export function VideoCard({
                 e.stopPropagation();
                 toggle(video.id);
               }}
-              className="grid h-8 w-8 place-items-center rounded-full bg-black/60 text-white transition hover:scale-110"
+              className="grid h-8 w-8 place-items-center rounded-full bg-black/60 text-white transition hover:scale-110 cursor-pointer"
             >
               <Heart
                 size={15}

@@ -24,15 +24,35 @@ export function useCollection(key: string, max = 100) {
         }
       }
     };
+    const onCustom = (e: Event) => {
+      const customEvent = e as CustomEvent<{ key: string; newValue: string }>;
+      if (customEvent.detail.key === key) {
+        try {
+          setIds(JSON.parse(customEvent.detail.newValue));
+        } catch {
+          /* ignore */
+        }
+      }
+    };
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("collection-update", onCustom);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("collection-update", onCustom);
+    };
   }, [key]);
 
   const save = useCallback(
     (next: string[]) => {
       setIds(next);
       try {
-        localStorage.setItem(key, JSON.stringify(next));
+        const val = JSON.stringify(next);
+        localStorage.setItem(key, val);
+        window.dispatchEvent(
+          new CustomEvent("collection-update", {
+            detail: { key, newValue: val },
+          })
+        );
       } catch {
         /* ignore */
       }

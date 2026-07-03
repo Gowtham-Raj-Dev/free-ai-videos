@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
         break;
       case "latest":
       default:
-        list.sort((a, b) => b.uploadDate.localeCompare(a.uploadDate));
+        list.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
     }
   }
 

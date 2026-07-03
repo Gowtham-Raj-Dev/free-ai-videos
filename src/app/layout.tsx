@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://ai-video-download.vercel.app",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://aivideos.codelove.in",
   ),
   ...buildMetadata({}),
   manifest: "/manifest.webmanifest",

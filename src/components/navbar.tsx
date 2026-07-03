@@ -1,10 +1,12 @@
 "use client";
 
-import Link from "next/link";
+// import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
+import { MobileMenu } from "./mobile-menu";
+import { CategoryIcon } from "./category-icon";
 import { openSearch } from "./search-modal";
 import { NAV_CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
@@ -14,6 +16,7 @@ const MAIN_LINKS = [
   { href: "/videos", label: "Browse" },
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
+  { href: "/wishlist", label: "Wishlist" },
 ];
 
 export function Navbar() {
@@ -35,20 +38,18 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:h-16 sm:px-6">
-        <Link href="/" className="flex items-center gap-2 font-bold">
-          <span className="grid h-9 w-9 place-items-center rounded-xl gradient-brand text-white shadow-lg shadow-brand-500/30">
-            <Sparkles size={18} />
-          </span>
+        <a href="/" className="flex items-center gap-2 font-bold">
+          <img src="/favicon.ico" alt="AIVideos Logo" className="h-8 w-8 object-contain" />
           <span className="text-lg tracking-tight">
             AI<span className="gradient-text">Videos</span>
           </span>
-        </Link>
+        </a>
 
         <nav className="ml-2 hidden items-center gap-1 md:flex">
           {MAIN_LINKS.map((l) => {
             const active = pathname === l.href;
             return (
-              <Link
+              <a
                 key={l.href}
                 href={l.href}
                 className={cn(
@@ -59,7 +60,7 @@ export function Navbar() {
                 )}
               >
                 {l.label}
-              </Link>
+              </a>
             );
           })}
         </nav>
@@ -77,6 +78,7 @@ export function Navbar() {
             </kbd>
           </button>
           <ThemeToggle />
+          <MobileMenu />
         </div>
       </div>
 
@@ -87,7 +89,7 @@ export function Navbar() {
             const href = `/${c.slug}`;
             const active = pathname === href;
             return (
-              <Link
+              <a
                 key={c.slug}
                 href={href}
                 className={cn(
@@ -97,9 +99,9 @@ export function Navbar() {
                     : "border-app text-muted hover:border-brand-400/50 hover:text-foreground",
                 )}
               >
-                <span>{c.emoji}</span>
+                <span><CategoryIcon name={c.icon as any} size={14} /></span>
                 {c.name}
-              </Link>
+              </a>
             );
           })}
         </div>

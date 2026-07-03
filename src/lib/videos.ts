@@ -24,13 +24,15 @@ function prettyCategory(folder: string): string {
 
 interface RawFile {
   folder: string;
+  baseFolder: string;
   file: string;
   size: number;
+  index: number;
 }
 
-// Adjust MAX_VIDEOS_LIMIT to control how many videos are scanned and loaded first
+// Adjust MAX_VIDEOS_PER_FOLDER to control how many videos are scanned from each folder
 // Set to null to load all videos fully
-export const MAX_VIDEOS_LIMIT: number | null = 100;
+export const MAX_VIDEOS_PER_FOLDER: number | null = 50;
 
 let scanned: RawFile[] | null = null;
 
@@ -46,31 +48,42 @@ function scanFiles(): RawFile[] {
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
     if (IGNORE.has(entry.name) || entry.name.startsWith(".")) continue;
-    const dir = path.join(PUBLIC_DIR, entry.name);
-    let files: string[] = [];
-    try {
-      files = fs.readdirSync(dir);
-    } catch {
-      continue;
+    const baseDir = path.join(PUBLIC_DIR, entry.name);
+    
+    let subDirs = [""];
+    if (entry.name === "Funny-Fails-Clips") {
+      subDirs = ["Funny Fails Clips [001 - 100]"];
     }
-    for (const f of files) {
-      if (!VIDEO_EXT.has(path.extname(f).toLowerCase())) continue;
+
+    let folderVideoCount = 0;
+    for (const sub of subDirs) {
+      const dirToScan = path.join(baseDir, sub);
+      const folderPath = sub ? `${entry.name}/${sub}` : entry.name;
       
-      // Stop scanning if we reached the configured limit
-      if (MAX_VIDEOS_LIMIT !== null && MAX_VIDEOS_LIMIT > 0 && out.length >= MAX_VIDEOS_LIMIT) {
-        break;
-      }
-      
-      let size = 0;
+      let files: string[] = [];
       try {
-        size = fs.statSync(path.join(dir, f)).size;
+        files = fs.readdirSync(dirToScan);
       } catch {
-        /* ignore */
+        continue;
       }
-      out.push({ folder: entry.name, file: f, size });
-    }
-    if (MAX_VIDEOS_LIMIT !== null && MAX_VIDEOS_LIMIT > 0 && out.length >= MAX_VIDEOS_LIMIT) {
-      break;
+
+      for (const f of files) {
+        if (!VIDEO_EXT.has(path.extname(f).toLowerCase())) continue;
+        
+        const isStudyReels = entry.name === "Study-Reels";
+        if (!isStudyReels && MAX_VIDEOS_PER_FOLDER !== null && MAX_VIDEOS_PER_FOLDER > 0 && folderVideoCount >= MAX_VIDEOS_PER_FOLDER) {
+          break;
+        }
+        
+        let size = 0;
+        try {
+          size = fs.statSync(path.join(dirToScan, f)).size;
+        } catch {
+          /* ignore */
+        }
+        out.push({ folder: folderPath, baseFolder: entry.name, file: f, size, index: folderVideoCount + 1 });
+        folderVideoCount++;
+      }
     }
   }
   scanned = out;
@@ -81,18 +94,24 @@ function buildMeta(raw: RawFile): VideoMeta {
   const id = raw.file.replace(/\.[^.]+$/, "");
   const seed = hashString(id);
   const theme: Theme = THEMES[seed % THEMES.length];
-  const category = prettyCategory(raw.folder);
+  const category = prettyCategory(raw.baseFolder);
   const categorySlug = slugify(category);
-  const title = generateTitle(seed, theme);
+  
+  let baseTitle = category;
+  if (baseTitle.toLowerCase().endsWith('s')) {
+    baseTitle = baseTitle.slice(0, -1);
+  }
+  const title = `${baseTitle} ${raw.index.toString().padStart(3, "0")}`;
 
   // base metrics are computed live in getAllVideos() so they grow over time
   const baseViews = 0;
   const baseDownloads = 0;
-  const daysAgo = Math.floor(seededRandom(seed + 17) * 120);
   const uploadDate = new Date(
-    Date.now() - daysAgo * 86_400_000 - Math.floor(seededRandom(seed) * 86_400_000),
+    Date.now() - (raw.index * 86_400_000)
   ).toISOString();
   const duration = 6 + Math.floor(seededRandom(seed + 21) * 13);
+
+  const encodedPath = raw.folder.split("/").map((p) => encodeURIComponent(p)).join("/");
 
   return {
     id,
@@ -100,7 +119,7 @@ function buildMeta(raw: RawFile): VideoMeta {
     category,
     categorySlug,
     theme,
-    src: `/${encodeURIComponent(raw.folder)}/${encodeURIComponent(raw.file)}`,
+    src: `/${encodedPath}/${encodeURIComponent(raw.file)}`,
     uploadDate,
     size: raw.size,
     duration,
@@ -111,6 +130,7 @@ function buildMeta(raw: RawFile): VideoMeta {
     views: baseViews,
     downloads: baseDownloads,
     score: 0,
+    index: raw.index,
   };
 }
 
@@ -119,20 +139,15 @@ function buildMeta(raw: RawFile): VideoMeta {
  * time. Each video gets a stable seeded baseline plus a steady per-day rate, so
  * numbers tick up slowly on every (force-dynamic) request without any cron job.
  */
-function dummyMetrics(id: string, uploadDate: string): {
+function dummyMetrics(v: VideoMeta): {
   views: number;
   downloads: number;
 } {
-  const seed = hashString(id);
-  const ageMs = Math.max(0, Date.now() - new Date(uploadDate).getTime());
-  const ageDays = ageMs / 86_400_000;
+  const seed = hashString(v.id);
 
-  // stable starting point: 150–2,000 views the moment it was "uploaded"
-  const seedBase = 150 + Math.floor(seededRandom(seed + 3) * 1850);
-  // steady popularity: 60–400 views/day (fractional → ticks up every few mins)
-  const viewsPerDay = 60 + seededRandom(seed + 5) * 340;
-  const views = Math.floor(seedBase + ageDays * viewsPerDay);
-
+  // Give 001 the highest views, grading down cleanly
+  const views = Math.max(100, 50000 - (v.index * 800) + Math.floor(seededRandom(seed + 3) * 100));
+  
   // downloads run at 3–8% of views, plus a small seeded base
   const dlRate = 0.03 + seededRandom(seed + 9) * 0.05;
   const downloads =
@@ -148,10 +163,6 @@ function baseCatalog(): VideoMeta[] {
   let all = scanFiles().map(buildMeta);
   all.sort((a, b) => b.uploadDate.localeCompare(a.uploadDate));
   
-  if (MAX_VIDEOS_LIMIT !== null && MAX_VIDEOS_LIMIT > 0) {
-    all = all.slice(0, MAX_VIDEOS_LIMIT);
-  }
-  
   catalog = all;
   return catalog;
 }
@@ -161,7 +172,7 @@ export function getAllVideos(): VideoMeta[] {
   const records = getAllRecords();
   return baseCatalog().map((v) => {
     const rec = records[v.id];
-    const dummy = dummyMetrics(v.id, v.uploadDate);
+    const dummy = dummyMetrics(v);
     const views = dummy.views + (rec?.views ?? 0);
     const downloads = dummy.downloads + (rec?.downloads ?? 0);
     const recency = Math.max(
@@ -190,19 +201,12 @@ export function getRelatedVideos(video: VideoMeta, limit = 8): VideoMeta[] {
 }
 
 export function getVideosForCategory(def: CategoryDef): VideoMeta[] {
-  if (
-    [
-      "nature-ai-videos",
-      "cinematic-ai-videos",
-      "fantasy-ai-videos",
-      "scifi-ai-videos",
-      "anime-ai-videos",
-      "ai-shorts",
-    ].includes(def.slug)
-  ) {
-    return [];
-  }
   const all = getAllVideos();
+  if (def.kind === "folder") {
+    return all
+      .filter((v) => v.categorySlug === def.slug)
+      .sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+  }
   if (def.kind === "theme") {
     return all
       .filter((v) => v.theme === def.theme)
@@ -229,17 +233,8 @@ export function getVideosForCategory(def: CategoryDef): VideoMeta[] {
 }
 
 export function categoryCount(def: CategoryDef): number {
-  if (
-    [
-      "nature-ai-videos",
-      "cinematic-ai-videos",
-      "fantasy-ai-videos",
-      "scifi-ai-videos",
-      "anime-ai-videos",
-      "ai-shorts",
-    ].includes(def.slug)
-  ) {
-    return 0;
+  if (def.kind === "folder") {
+    return baseCatalog().filter((v) => v.categorySlug === def.slug).length;
   }
   if (def.kind === "theme")
     return baseCatalog().filter((v) => v.theme === def.theme).length;

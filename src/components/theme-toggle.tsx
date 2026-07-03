@@ -17,7 +17,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={`relative grid h-10 w-10 place-items-center rounded-full glass transition-colors hover:text-brand-400 ${className ?? ""}`}
+      className={`relative grid h-10 w-10 place-items-center rounded-full glass transition-colors hover:text-brand-400 cursor-pointer ${className ?? ""}`}
     >
       <AnimatePresence mode="wait" initial={false}>
         {mounted && (

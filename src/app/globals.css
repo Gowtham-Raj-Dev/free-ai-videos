@@ -32,6 +32,9 @@
   --card-border: rgba(10, 10, 15, 0.08);
   --glass-blur: 16px;
   --glow: rgba(99, 102, 241, 0.35);
+  --shine: #0a0a0a;
+  --shine-base-1: var(--color-brand-600);
+  --shine-base-2: var(--color-accent);
 }
 
 .dark {
@@ -43,6 +46,9 @@
   --card: rgba(20, 20, 24, 0.55);
   --card-border: rgba(255, 255, 255, 0.1);
   --glow: rgba(168, 85, 247, 0.45);
+  --shine: #ffffff;
+  --shine-base-1: var(--color-brand-400);
+  --shine-base-2: var(--color-accent);
 }
 
 * {
@@ -140,6 +146,20 @@ a {
         var(--color-accent-2));
   }
 
+  .shine-text {
+    background: linear-gradient(100deg,
+        var(--shine-base-1) 20%,
+        var(--shine-base-2) 40%,
+        var(--shine) 50%,
+        var(--shine-base-2) 60%,
+        var(--shine-base-1) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 4s linear infinite;
+  }
+
   .hide-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -213,6 +233,15 @@ a {
       var(--bg-soft) 63%);
   background-size: 200% 100%;
   animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

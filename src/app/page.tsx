@@ -17,22 +17,22 @@ import {
   getCategorySummaries,
 } from "@/lib/videos";
 import { getCategory } from "@/lib/categories";
-import { faqSchema } from "@/lib/seo";
+import { faqSchema, websiteSchema, softwareSchema } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
 const HOME_FAQS = [
   {
     q: "Are these AI videos really free to download?",
-    a: "Yes. Every AI generated video on AIVideos is 100% free to download in HD with no watermark and no sign-up required.",
+    a: "Yes. Every AI generated video on AIVideos by CodeLove is 100% free to download in HD with no watermark and no sign-up required.",
   },
   {
-    q: "What kinds of AI videos can I download?",
-    a: "We offer AI generated videos across many themes including anime, cinematic, nature, sci-fi, fantasy and vertical AI shorts — updated daily.",
+    q: "What kinds of free AI videos can I download?",
+    a: "We offer free AI generated videos across many themes including anime, cinematic, nature, sci-fi, fantasy and vertical AI shorts — updated daily by CodeLove.",
   },
   {
-    q: "Can I use AI videos for my own projects?",
-    a: "Yes, our AI video clips are perfect for reels, edits, backgrounds, and creative projects on any platform.",
+    q: "Can I use these free AI videos for my own projects?",
+    a: "Yes, our free AI video clips are perfect for reels, edits, backgrounds, and creative projects on any platform.",
   },
 ];
 
@@ -56,16 +56,16 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-20">
-      <JsonLd data={faqSchema(HOME_FAQS)} />
+      <JsonLd data={[websiteSchema(), softwareSchema(), faqSchema(HOME_FAQS)]} />
 
       <Hero
-        floats={trending}
+        floats={[...trending].sort(() => Math.random() - 0.5).slice(0, 5)}
         totalVideos={stats.totalVideos}
         totalDownloads={stats.totalDownloads}
       />
 
       {/* stats */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6">
+      <section className="-mt-8 mx-auto max-w-7xl px-4 sm:-mt-10 sm:px-6 lg:-mt-4">
         <StatCards stats={stats} />
       </section>
 
@@ -92,11 +92,7 @@ export default function HomePage() {
             href="/categories"
           />
         </Reveal>
-        <CategoryGrid
-          categories={categories.filter(
-            (c) => c.slug === "ai-animal-videos" || c.kind === "theme",
-          )}
-        />
+        <CategoryGrid categories={categories.filter((c) => c.kind === "folder").slice(0, 12)} />
       </section>
 
       {/* latest */}
@@ -114,19 +110,19 @@ export default function HomePage() {
 
       {/* SEO content */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
-        <SeoBlock title="Free AI Video Download — Premium AI Generated Videos">
+        <SeoBlock title="Free AI Video Download by CodeLove | High-Quality AI Generated Footage">
           <p>
-            AIVideos is your home for <strong>free AI video downloads</strong>.
+            AIVideos by CodeLove is your ultimate destination for <strong>free AI video downloads</strong>.
             Explore a constantly growing gallery of high-quality{" "}
-            <strong>AI generated videos</strong> spanning anime, cinematic,
-            nature, sci-fi, fantasy and vertical AI shorts. Every clip is free to
+            <strong>free AI generated videos</strong> spanning anime, cinematic,
+            nature, sci-fi, fantasy and vertical AI shorts. Every clip is 100% free to
             download in HD with no watermark and no account required.
           </p>
           <p>
-            Whether you need <strong>AI background videos</strong> for a project,
-            trending <strong>AI shorts</strong> for Reels and TikTok, or
-            cinematic AI footage for your next edit, our AI video library is
-            updated daily so you always have fresh content.
+            Whether you need <strong>free AI background videos</strong> for a project,
+            trending <strong>free ai Shorts download</strong> for YouTube, or
+            cinematic AI footage for your next edit, our CodeLove AI video library is
+            updated daily. You can easily find <strong>free ai reels download</strong> options, perfect <strong>free ai videos for youtube upload</strong>, <strong>free ai videos for reels upload</strong>, and <strong>free ai videos for instagram upload</strong> so you always have fresh, copyright-free content ready to go viral.
           </p>
         </SeoBlock>
       </section>

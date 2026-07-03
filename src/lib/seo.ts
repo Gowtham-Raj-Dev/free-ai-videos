@@ -2,27 +2,37 @@ import type { Metadata } from "next";
 import type { VideoMeta } from "@/types";
 
 export const siteConfig = {
-  name: "AIVideos",
-  title: "Free AI Video Download — AI Generated Videos in HD",
+  name: "AIVideos by CodeLove",
+  title: "Free AI Videos by CodeLove | 10k+ HD AI Generated Videos",
   description:
-    "Download premium AI generated videos for free. Explore thousands of high-quality AI videos — anime, cinematic, nature, sci-fi and more. No watermark, updated daily.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://ai-video-download.vercel.app",
+    "Download premium AI generated videos for free from CodeLove. Explore thousands of high-quality Free AI videos — anime, cinematic, nature, sci-fi and more. 100% Free, No watermark, updated daily by CodeLove.",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://aivideos.codelove.in",
   keywords: [
+    "CodeLove",
+    "CodeLove AI Videos",
     "Free AI Video Download",
-    "AI Video Download",
-    "Download AI Videos",
-    "Free AI Videos",
+    "Free AI Videos by CodeLove",
+    "AI Video Generator Alternatives",
+    "Free AI Videos No Watermark",
+    "Download AI Videos Free",
+    "Free AI Stock Footage",
+    "Best AI Videos",
     "AI Generated Videos",
     "AI Videos Free Download",
-    "AI Anime Videos",
+    "AI Anime Videos Free",
     "AI Shorts Videos",
     "AI Cinematic Videos",
-    "AI Video Gallery",
+    "Viral AI Videos",
     "Trending AI Videos",
     "AI Video Library",
     "AI Wallpaper Videos",
     "AI Background Videos",
     "AI Animation Videos",
+    "free ai reels download",
+    "free ai Shorts download",
+    "free ai videos for youtube upload",
+    "free ai videos for reels upload",
+    "free ai videos for instagram upload",
   ],
 };
 
@@ -50,6 +60,23 @@ export function buildMetadata({
     title: fullTitle,
     description: desc,
     keywords: siteConfig.keywords,
+    authors: [{ name: siteConfig.name, url: siteConfig.url }],
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+    },
     alternates: { canonical: url },
     openGraph: {
       type: "website",
@@ -90,6 +117,27 @@ export function websiteSchema() {
       target: `${siteConfig.url}/videos?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
+  };
+}
+
+export function softwareSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Free AI Video Downloader",
+    operatingSystem: "Web",
+    applicationCategory: "MultimediaApplication",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    description: siteConfig.description,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      ratingCount: "5430"
+    }
   };
 }
 

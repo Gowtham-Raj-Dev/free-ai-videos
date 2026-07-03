@@ -27,8 +27,8 @@ export async function generateMetadata({
   const video = getVideoById(id);
   if (!video) return buildMetadata({ title: "Video not found" });
   return buildMetadata({
-    title: `Free AI Video Download - ${video.title}`,
-    description: video.description,
+    title: `${video.title} | Free AI Video Download by CodeLove (HD)`,
+    description: `${video.description} Download this AI generated video for free with no watermark from CodeLove. Perfect for edits, shorts, and creators.`,
     path: `/video/${video.id}`,
     images: [absoluteUrl(video.src)],
   });

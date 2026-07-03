@@ -3,9 +3,9 @@ import { Mail, MessageSquare, Send } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Contact",
+  title: "Contact Us | AIVideos - Free AI Generated Videos",
   description:
-    "Get in touch with the AIVideos team. Questions, feedback or partnership requests welcome.",
+    "Get in touch with the AIVideos team. Have questions about our free AI videos or partnership requests? We'd love to hear from you.",
   path: "/contact",
 });
 

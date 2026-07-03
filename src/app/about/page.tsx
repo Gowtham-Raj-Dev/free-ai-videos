@@ -4,9 +4,9 @@ import { Sparkles, Download, Zap, ShieldCheck, RefreshCw, Smartphone } from "luc
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "About",
+  title: "About AIVideos | 100% Free AI Generated Videos",
   description:
-    "Learn about AIVideos — the free platform for downloading premium AI generated videos in HD with no watermark.",
+    "Learn about AIVideos — the premier platform for downloading free AI generated videos in 4K & HD with no watermark. AI video stock footage for everyone.",
   path: "/about",
 });
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Film, Eye, Download, Flame, TrendingUp } from "lucide-react";
+import { Film, Eye, Download, Flame, TrendingUp, Folder } from "lucide-react";
 import type { PlatformStats } from "@/types";
 import { Counter } from "./counter";
 import { formatCompact } from "@/lib/utils";
@@ -17,10 +17,16 @@ export function StatCards({ stats }: { stats: PlatformStats }) {
       icon: Download,
       compact: true,
     },
+    {
+      label: "Categories",
+      value: stats.categories,
+      icon: Folder,
+      compact: false,
+    },
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-6">
       {primary.map((s, i) => {
         const Icon = s.icon;
         return (
@@ -87,15 +93,17 @@ function SpotlightCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="glass col-span-2 overflow-hidden rounded-2xl p-3 lg:col-span-1"
+      className="glass flex flex-col justify-center col-span-2 overflow-hidden rounded-2xl p-3 lg:col-span-1"
     >
       <Link href={`/video/${id}`} className="flex items-center gap-3">
         <video
-          src={`${src}#t=0.3`}
+          src={src}
           muted
+          autoPlay
+          loop
           playsInline
           preload="metadata"
-          className="h-16 w-12 shrink-0 rounded-lg object-cover"
+          className="h-16 w-12 shrink-0 rounded-lg object-cover bg-white/5"
         />
         <div className="min-w-0">
           <p className="flex items-center gap-1.5 text-xs font-medium text-muted">

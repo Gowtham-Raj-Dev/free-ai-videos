@@ -5,9 +5,9 @@ import { VideoGridSkeleton } from "@/components/video-grid";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Browse All AI Videos",
+  title: "Browse All Free AI Videos by CodeLove | 10k+ HD Clips",
   description:
-    "Browse and download thousands of free AI generated videos. Filter by category and sort by latest, most viewed or most downloaded.",
+    "Browse and download thousands of 100% free AI generated videos by CodeLove. Filter by category, trending, or latest. No watermark, high quality.",
   path: "/videos",
 });
 

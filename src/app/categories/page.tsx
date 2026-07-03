@@ -6,16 +6,16 @@ import { buildMetadata } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = buildMetadata({
-  title: "AI Video Categories",
+  title: "Browse All Free AI Video Categories | CodeLove (No Watermark)",
   description:
-    "Browse all AI video categories — anime, cinematic, nature, sci-fi, fantasy, shorts and more. Free AI generated videos in HD.",
+    "Explore our complete directory of free AI video categories from CodeLove — anime, cinematic, nature, sci-fi, fantasy, shorts and more. Download AI generated videos in HD.",
   path: "/categories",
 });
 
 export default function CategoriesPage() {
   const categories = getCategorySummaries();
-  const themes = categories.filter((c) => c.kind === "theme");
-  const collections = categories.filter((c) => c.kind !== "theme");
+  const themes = categories.filter((c) => c.kind === "folder");
+  const collections = categories.filter((c) => c.kind !== "folder");
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
@@ -28,7 +28,7 @@ export default function CategoriesPage() {
         </p>
       </header>
 
-      <h2 className="mb-4 text-lg font-bold">By Theme</h2>
+      <h2 className="mb-4 text-lg font-bold">Library Folders</h2>
       <CategoryGrid categories={themes} />
 
       <h2 className="mb-4 mt-12 text-lg font-bold">Collections</h2>

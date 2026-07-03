@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { SlidersHorizontal } from "lucide-react";
 import { PaginatedGrid } from "./paginated-grid";
+import { CategoryIcon } from "./category-icon";
 import { CATEGORIES } from "@/lib/categories";
 import { cn } from "@/lib/utils";
 
@@ -37,7 +38,12 @@ export function BrowseExplorer() {
               key={c.slug}
               active={category === c.slug}
               onClick={() => setCategory(c.slug)}
-              label={`${c.emoji} ${c.name}`}
+              label={
+                <span className="flex items-center gap-1.5">
+                  <CategoryIcon name={c.icon} size={14} />
+                  {c.name}
+                </span>
+              }
             />
           ))}
         </div>
@@ -80,7 +86,7 @@ function FilterChip({
 }: {
   active: boolean;
   onClick: () => void;
-  label: string;
+  label: React.ReactNode;
 }) {
   return (
     <button

@@ -15,152 +15,168 @@ export type Theme = (typeof THEMES)[number];
 export interface CategoryDef {
   slug: string;
   name: string;
-  emoji: string;
+  icon: string;
   title: string;
   description: string;
   seoContent: string;
   /** how videos are selected for this page */
-  kind: "all" | "theme" | "sort";
+  kind: "all" | "theme" | "sort" | "folder";
   theme?: Theme;
   sort?: "trending" | "latest" | "popular" | "downloads";
 }
 
 /**
  * SEO landing categories. These power /[category] routes, the nav,
- * and the homepage sections. Themed ones filter the library by an
- * assigned theme so every page has real content.
+ * and the homepage sections.
  */
 export const CATEGORIES: CategoryDef[] = [
   {
     slug: "free-ai-videos",
     name: "Free AI Videos",
-    emoji: "✨",
+    icon: "Sparkles",
     kind: "all",
-    title: "Free AI Video Download — HD AI Generated Videos",
-    description:
-      "Download premium AI generated videos for free. No watermark, no sign-up. Thousands of high-quality AI clips updated daily.",
-    seoContent:
-      "Explore our complete library of free AI generated videos. Every clip is rendered in high definition and free to download with no watermark and no account required. From hyper-real wildlife to cinematic dreamscapes, our AI video gallery is updated daily with fresh content for creators, editors and storytellers.",
+    title: "Free AI Video Download | No Watermark AI Generated Videos",
+    description: "Download premium AI generated videos for free. No watermark, no sign-up. High-quality AI clips updated daily.",
+    seoContent: "Explore our complete library of free AI generated videos. Every clip is rendered in high definition and free to download with no watermark.",
   },
   {
     slug: "trending-ai-videos",
     name: "Trending AI Videos",
-    emoji: "🔥",
+    icon: "Flame",
     kind: "sort",
     sort: "trending",
-    title: "Trending AI Videos — Most Popular AI Clips Right Now",
-    description:
-      "See the trending AI videos everyone is downloading right now. The hottest AI generated clips, ranked by views and downloads.",
-    seoContent:
-      "These are the trending AI videos with the most momentum right now, ranked by a blend of views and downloads. Discover what other creators are downloading and find viral-ready AI clips for your next project.",
+    title: "Trending AI Videos | Viral & Most Popular AI Clips Right Now",
+    description: "See the trending AI videos everyone is downloading right now. The hottest AI generated clips.",
+    seoContent: "These are the trending AI videos with the most momentum right now, ranked by a blend of views and downloads.",
   },
   {
     slug: "latest-ai-videos",
     name: "Latest AI Videos",
-    emoji: "🆕",
+    icon: "Clock",
     kind: "sort",
     sort: "latest",
-    title: "Latest AI Videos — New AI Generated Clips Added Daily",
-    description:
-      "Browse the latest AI generated videos added to our library. Fresh AI clips uploaded daily, free to download in HD.",
-    seoContent:
-      "Stay ahead with the latest AI videos added to our gallery. We publish new AI generated clips every day so you always have fresh, on-trend footage to download for free.",
+    title: "Latest AI Videos | New AI Generated Clips Added Daily (Free)",
+    description: "Browse the latest AI generated videos added to our library. Fresh AI clips uploaded daily.",
+    seoContent: "Stay ahead with the latest AI videos added to our gallery. We publish new AI generated clips every day.",
   },
   {
     slug: "popular-ai-videos",
     name: "Popular AI Videos",
-    emoji: "⭐",
+    icon: "Star",
     kind: "sort",
     sort: "popular",
-    title: "Popular AI Videos — Most Viewed AI Generated Videos",
-    description:
-      "The most popular AI videos of all time, ranked by total views. Download the AI clips loved by thousands of creators.",
-    seoContent:
-      "Our most popular AI videos of all time, ranked by total views. These crowd favorites have been watched and downloaded thousands of times — a curated shortcut to the best AI generated content in the library.",
+    title: "Popular AI Videos | Most Viewed AI Generated Videos (Top 100)",
+    description: "The most popular AI videos of all time, ranked by total views. Download the viral AI clips.",
+    seoContent: "Our most popular AI videos of all time, ranked by total views. These crowd favorites have been watched and downloaded thousands of times.",
   },
   {
     slug: "ai-animal-videos",
     name: "AI Animal Videos",
-    emoji: "🦁",
-    kind: "all",
-    title: "AI Animal Videos — Free AI Generated Wildlife & Animals",
-    description:
-      "Download high-quality AI generated animal videos for free. High definition wildlife clips, lions, tigers, eagles, and more.",
-    seoContent:
-      "Explore our exclusive collection of AI animal videos. Featuring stunning AI-generated wildlife, pets, and fantasy creatures, all clips are free to download in high definition with no watermarks.",
+    icon: "Cat",
+    kind: "folder",
+    title: "Free AI Animal Videos | HD AI Generated Wildlife",
+    description: "Download high-quality AI generated animal videos for free. No watermark.",
+    seoContent: "Explore our exclusive collection of AI animal videos featuring stunning AI-generated wildlife.",
   },
   {
-    slug: "nature-ai-videos",
-    name: "Nature AI Videos",
-    emoji: "🌿",
-    kind: "theme",
-    theme: "nature",
-    title: "Nature AI Videos — AI Generated Wildlife & Landscapes",
-    description:
-      "Download stunning nature AI videos free. AI generated wildlife, landscapes and natural wonders in cinematic HD.",
-    seoContent:
-      "Immerse yourself in nature AI videos — AI generated wildlife, sweeping landscapes and breathtaking natural moments. Perfect background footage for documentaries, ambient screens and nature-inspired content, free to download in HD.",
+    slug: "ai-miniature-reels",
+    name: "AI Miniature Reels",
+    icon: "Castle",
+    kind: "folder",
+    title: "Free AI Miniature Reels | Tiny Worlds AI Generated",
+    description: "Download high-quality AI generated miniature reels. Free miniature worlds in HD.",
+    seoContent: "Discover our miniature reels collection with AI-generated tiny landscapes and objects.",
   },
   {
-    slug: "cinematic-ai-videos",
-    name: "Cinematic AI Videos",
-    emoji: "🎬",
-    kind: "theme",
-    theme: "cinematic",
-    title: "Cinematic AI Videos — Film-Grade AI Generated Clips",
-    description:
-      "Download cinematic AI videos free. Film-grade AI generated footage with dramatic lighting and depth, in HD.",
-    seoContent:
-      "Cinematic AI videos engineered for impact — dramatic lighting, shallow depth of field and film-grade color. Drop these AI generated clips into trailers, intros and reels to give any project a blockbuster feel.",
+    slug: "ai-tech-reels",
+    name: "AI Tech Reels",
+    icon: "Laptop",
+    kind: "folder",
+    title: "Free AI Tech Reels | Futuristic Tech AI Videos",
+    description: "Download futuristic AI generated tech reels and clips in HD.",
+    seoContent: "A huge collection of AI generated tech reels perfect for modern creators.",
   },
   {
-    slug: "fantasy-ai-videos",
-    name: "Fantasy AI Videos",
-    emoji: "🐉",
-    kind: "theme",
-    theme: "fantasy",
-    title: "Fantasy AI Videos — Magical AI Generated Worlds",
-    description:
-      "Download fantasy AI videos free. Magical creatures, mythical worlds and surreal AI generated scenes in HD.",
-    seoContent:
-      "Step into fantasy AI videos full of mythical creatures, enchanted worlds and surreal imagination. These AI generated clips are ideal for gaming content, storytelling and anything that needs a touch of magic.",
+    slug: "car-reels",
+    name: "Car Reels",
+    icon: "Car",
+    kind: "folder",
+    title: "Free Car Reels | High-End Car Edits",
+    description: "Download amazing AI generated car reels and sports car edits.",
+    seoContent: "Check out our car reels category for the most epic automotive AI clips.",
   },
   {
-    slug: "scifi-ai-videos",
-    name: "Sci-Fi AI Videos",
-    emoji: "🚀",
-    kind: "theme",
-    theme: "scifi",
-    title: "Sci-Fi AI Videos — Futuristic AI Generated Footage",
-    description:
-      "Download sci-fi AI videos free. Futuristic worlds, neon cities and otherworldly AI generated scenes in HD.",
-    seoContent:
-      "Futuristic sci-fi AI videos packed with neon cities, alien worlds and next-gen visuals. Use these AI generated clips for tech intros, music videos and anything that should feel like the future.",
+    slug: "funny-fails-clips",
+    name: "Funny Fails Clips",
+    icon: "Laugh",
+    kind: "folder",
+    title: "Free Funny Fails Clips | Hilarious AI Fails",
+    description: "Download the funniest AI generated fails and comedy clips.",
+    seoContent: "Get ready to laugh with our funny fails clips collection entirely generated by AI.",
   },
   {
-    slug: "anime-ai-videos",
-    name: "Anime AI Videos",
-    emoji: "🎴",
-    kind: "theme",
-    theme: "anime",
-    title: "Anime AI Videos — Stylized AI Generated Animation",
-    description:
-      "Download anime AI videos free. Stylized, vibrant AI generated animation clips in HD, no watermark.",
-    seoContent:
-      "Vibrant anime AI videos with bold, stylized animation and expressive color. These AI generated clips are perfect for edits, AMVs and stylish social content — free to download with no watermark.",
+    slug: "luxury-reels-bundle",
+    name: "Luxury Reels Bundle",
+    icon: "Gem",
+    kind: "folder",
+    title: "Free Luxury Reels Bundle | Premium Lifestyle Edits",
+    description: "Download luxury AI reels bundle for lifestyle motivation videos.",
+    seoContent: "Elevate your content with our luxury reels bundle featuring premium lifestyle clips.",
   },
   {
-    slug: "ai-shorts",
-    name: "AI Shorts",
-    emoji: "📱",
-    kind: "theme",
-    theme: "shorts",
-    title: "AI Shorts — Vertical AI Videos for Reels & Shorts",
-    description:
-      "Download AI shorts free. Snappy vertical AI generated videos made for Reels, Shorts and TikTok in HD.",
-    seoContent:
-      "Snappy AI shorts built for vertical feeds — Reels, YouTube Shorts and TikTok. These bite-sized AI generated clips are optimized for mobile, loop beautifully and are free to download in HD.",
+    slug: "satisfying-reels",
+    name: "Satisfying Reels",
+    icon: "Droplet",
+    kind: "folder",
+    title: "Free Satisfying Reels | Oddly Satisfying AI Videos",
+    description: "Download oddly satisfying AI generated reels in 4K/HD.",
+    seoContent: "Find peace and engagement with our oddly satisfying reels category.",
   },
+  {
+    slug: "study-reels",
+    name: "Study Reels",
+    icon: "BookOpen",
+    kind: "folder",
+    title: "Free Study Reels | Lofi Study & Focus Videos",
+    description: "Download study motivation and lofi aesthetic AI videos.",
+    seoContent: "Perfect background clips for your study or lofi channels in our study reels collection.",
+  },
+  {
+    slug: "super-hero-videos",
+    name: "Super Hero Videos",
+    icon: "Shield",
+    kind: "folder",
+    title: "Free Super Hero Videos | Epic AI Heroes",
+    description: "Download epic AI generated super hero videos in HD.",
+    seoContent: "Action-packed super hero videos generated by AI for free download.",
+  },
+  {
+    slug: "tools-tips-reels",
+    name: "Tools Tips Reels",
+    icon: "Wrench",
+    kind: "folder",
+    title: "Free Tools & Tips Reels | AI Life Hacks",
+    description: "Download helpful AI generated tools and tips reels.",
+    seoContent: "Educational and informative tools and tips reels created by AI.",
+  },
+  {
+    slug: "emotional",
+    name: "Emotional",
+    icon: "Heart",
+    kind: "folder",
+    title: "Free Emotional Videos | Touching AI Clips",
+    description: "Download deeply emotional and touching AI generated videos.",
+    seoContent: "A curated collection of emotional AI videos that resonate and inspire.",
+  },
+  {
+    slug: "nature",
+    name: "Nature",
+    icon: "Leaf",
+    kind: "folder",
+    title: "Free Nature Videos | AI Landscapes",
+    description: "Download breathtaking AI generated nature videos and landscapes.",
+    seoContent: "Stunning natural environments and scenery generated by AI.",
+  }
 ];
 
 export const CATEGORY_MAP: Record<string, CategoryDef> = Object.fromEntries(
@@ -169,11 +185,7 @@ export const CATEGORY_MAP: Record<string, CategoryDef> = Object.fromEntries(
 
 /** Categories shown in the main navigation / chips. */
 export const NAV_CATEGORIES = CATEGORIES.filter(
-  (c) =>
-    c.slug === "trending-ai-videos" ||
-    c.slug === "ai-animal-videos" ||
-    (c.kind === "theme" && c.slug !== "ai-shorts") ||
-    c.slug === "ai-shorts",
+  (c) => c.kind === "folder" || c.slug === "trending-ai-videos" || c.slug === "free-ai-videos"
 );
 
 export function getCategory(slug: string): CategoryDef | undefined {
@@ -188,7 +200,7 @@ export function toCategoryMeta(def: CategoryDef, count: number): CategoryMeta {
     title: def.title,
     description: def.description,
     seoContent: def.seoContent,
-    emoji: def.emoji,
+    icon: def.icon,
     count,
   };
 }

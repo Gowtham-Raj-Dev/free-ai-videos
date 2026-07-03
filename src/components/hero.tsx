@@ -25,7 +25,7 @@ export function Hero({
   totalDownloads: number;
 }) {
   return (
-    <section className="relative overflow-hidden px-4 pt-10 sm:px-6 sm:pt-16">
+    <section className="relative overflow-hidden px-4 pt-10 pb-8 sm:px-6 sm:pt-16 sm:pb-12 lg:pb-0">
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
         {/* copy */}
         <div className="text-center lg:text-left">
@@ -47,7 +47,7 @@ export function Hero({
           >
             AI Generated Videos
             <br />
-            <span className="gradient-text">Download Premium</span>
+            <span className="shine-text">Download Premium</span>
             <br className="hidden sm:block" /> AI Videos Free
           </motion.h1>
 
@@ -65,19 +65,21 @@ export function Hero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-7 flex flex-col items-center gap-3 sm:flex-row lg:justify-start"
+            className="mt-7 flex flex-row items-center justify-center gap-3 lg:justify-start"
           >
             <Link
               href="/videos"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full gradient-brand px-7 py-3.5 font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:scale-[1.02] sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full gradient-brand px-4 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:scale-[1.02] sm:w-auto sm:px-7 sm:text-base"
             >
-              <Play size={18} className="fill-white" /> Browse Videos
+              <Play size={18} className="fill-white text-white" />
+              <span className="text-white">Browse <span className="hidden sm:inline">Videos</span></span>
             </Link>
             <Link
               href="/trending-ai-videos"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full glass px-7 py-3.5 font-semibold transition hover:scale-[1.02] sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full glass px-4 py-3.5 text-sm font-semibold transition hover:scale-[1.02] sm:w-auto sm:px-7 sm:text-base"
             >
-              <Flame size={18} className="text-accent-2" /> Trending Videos
+              <Flame size={18} className="text-accent-2" />
+              <span>Trending <span className="hidden sm:inline">Videos</span></span>
             </Link>
           </motion.div>
         </div>
@@ -119,7 +121,7 @@ export function Hero({
                       src={`${v.src}#t=0.5`}
                       muted
                       loop
-                      autoPlay={i === 0 || i === 2}
+                      autoPlay
                       playsInline
                       preload="metadata"
                       className="absolute inset-0 h-full w-full rounded-2xl object-cover"

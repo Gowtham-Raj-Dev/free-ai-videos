@@ -65,8 +65,7 @@ export function VideoActions({ video }: { video: VideoMeta }) {
       <a
         href={href}
         download={filename}
-        onClick={onDownload}
-        className="inline-flex flex-1 items-center justify-center gap-2 rounded-full gradient-brand px-6 py-3 font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:opacity-95 sm:flex-none"
+        className="inline-flex flex-1 items-center justify-center gap-2 rounded-full gradient-brand px-6 py-3 font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:opacity-95 sm:flex-none cursor-pointer"
       >
         {loading ? (
           <Loader2 size={18} className="animate-spin" />
@@ -79,7 +78,7 @@ export function VideoActions({ video }: { video: VideoMeta }) {
       <button
         onClick={() => toggle(video.id)}
         aria-label="Favorite"
-        className="grid h-12 w-12 place-items-center rounded-full glass transition hover:scale-105"
+        className="grid h-12 w-12 place-items-center rounded-full glass transition hover:scale-105 cursor-pointer"
       >
         <Heart size={19} className={cn(fav && "fill-accent-2 text-accent-2")} />
       </button>
@@ -87,14 +86,14 @@ export function VideoActions({ video }: { video: VideoMeta }) {
       <button
         onClick={share}
         aria-label="Share"
-        className="grid h-12 w-12 place-items-center rounded-full glass transition hover:scale-105"
+        className="grid h-12 w-12 place-items-center rounded-full glass transition hover:scale-105 cursor-pointer"
       >
         <Share2 size={19} />
       </button>
 
       <button
         onClick={copyLink}
-        className="inline-flex items-center gap-2 rounded-full glass px-4 py-3 text-sm font-medium transition hover:scale-[1.02]"
+        className="inline-flex items-center gap-2 rounded-full glass px-4 py-3 text-sm font-medium transition hover:scale-[1.02] cursor-pointer"
       >
         {copied ? (
           <Check size={17} className="text-green-400" />
@@ -119,7 +118,7 @@ export function StickyDownloadBar({ video }: { video: VideoMeta }) {
         href={href}
         download={filename}
         onClick={onDownload}
-        className="flex w-full items-center justify-center gap-2 rounded-2xl gradient-brand py-3.5 font-semibold text-white shadow-2xl shadow-brand-500/40"
+        className="flex w-full items-center justify-center gap-2 rounded-2xl gradient-brand py-3.5 font-semibold text-white shadow-2xl shadow-brand-500/40 cursor-pointer"
       >
         {loading ? (
           <Loader2 size={18} className="animate-spin" />
