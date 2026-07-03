@@ -3,6 +3,8 @@ import { siteConfig } from "@/lib/seo";
 import { CATEGORIES } from "@/lib/categories";
 import { getAllVideos } from "@/lib/videos";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const base = siteConfig.url;

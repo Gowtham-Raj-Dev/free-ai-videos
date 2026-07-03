@@ -12,7 +12,7 @@ import { formatCompact } from "@/lib/utils";
 import { ZipDownloadButton } from "@/components/zip-download-button";
 import { CategoryIcon } from "@/components/category-icon";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ category: c.slug }));

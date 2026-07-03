@@ -19,7 +19,7 @@ import {
 import { getCategory } from "@/lib/categories";
 import { faqSchema, websiteSchema, softwareSchema } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 const HOME_FAQS = [
   {

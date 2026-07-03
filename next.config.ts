@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   output: "export", // Required for GitHub Pages static hosting
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
+  },
   /* 
   // Next.js static export does not support custom headers()
   async headers() {

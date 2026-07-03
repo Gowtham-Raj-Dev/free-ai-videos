@@ -3,7 +3,7 @@ import { CategoryGrid } from "@/components/category-grid";
 import { getCategorySummaries } from "@/lib/videos";
 import { buildMetadata } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export const metadata: Metadata = buildMetadata({
   title: "Browse All Free AI Video Categories | CodeLove (No Watermark)",

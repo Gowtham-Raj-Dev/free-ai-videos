@@ -15,6 +15,69 @@ export interface GridQuery {
   ids?: string;
 }
 
+let cachedCatalog: VideoMeta[] | null = null;
+export async function getCatalog(): Promise<VideoMeta[]> {
+  if (cachedCatalog) return cachedCatalog;
+  try {
+    const res = await fetch("/api/videos-catalog");
+    cachedCatalog = await res.json();
+    return cachedCatalog ?? [];
+  } catch (err) {
+    console.error("Failed to load videos catalog", err);
+    return [];
+  }
+}
+
+export function filterVideos(all: VideoMeta[], query: GridQuery): VideoMeta[] {
+  let list = [...all];
+  const q = query.q?.trim().toLowerCase();
+  const category = query.category?.trim();
+  const sort = query.sort ?? "latest";
+  const ids = query.ids?.trim();
+
+  if (ids) {
+    const idSet = new Set(ids.split("|"));
+    list = list.filter((v) => idSet.has(v.id));
+  } else if (q) {
+    list = list
+      .map((v) => {
+        const hay = `${v.title} ${v.category} ${v.theme} ${v.tags.join(" ")}`.toLowerCase();
+        let s = 0;
+        if (v.title.toLowerCase().includes(q)) s += 10;
+        if (hay.includes(q)) s += 5;
+        for (const word of q.split(/\s+/)) {
+          if (hay.includes(word)) s += 1;
+        }
+        return { v, s };
+      })
+      .filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s || b.v.score - a.v.score)
+      .map((x) => x.v);
+  } else if (category) {
+    list = list.filter((v) => v.categorySlug === category);
+  }
+
+  // Sort
+  if (!q) {
+    switch (sort) {
+      case "views":
+        list.sort((a, b) => b.views - a.views);
+        break;
+      case "downloads":
+        list.sort((a, b) => b.downloads - a.downloads);
+        break;
+      case "trending":
+        list.sort((a, b) => b.score - a.score);
+        break;
+      case "latest":
+      default:
+        list.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+    }
+  }
+
+  return list;
+}
+
 export function PaginatedGrid({
   initial = [],
   initialTotal = 0,
@@ -40,23 +103,21 @@ export function PaginatedGrid({
     async (p: number, scroll: boolean) => {
       setLoading(true);
       try {
-        const params = new URLSearchParams({
-          page: String(p),
-          limit: String(PAGE_SIZE),
-        });
-        if (query.q) params.set("q", query.q);
-        if (query.category) params.set("category", query.category);
-        if (query.sort) params.set("sort", query.sort);
-        if (query.ids) params.set("ids", query.ids);
-        const res = await fetch(`/api/videos?${params}`);
-        const data = await res.json();
-        setItems(data.items);
-        setTotal(data.total);
+        const allVideos = await getCatalog();
+        const filtered = filterVideos(allVideos, query);
+        
+        const start = (p - 1) * PAGE_SIZE;
+        const pageItems = filtered.slice(start, start + PAGE_SIZE);
+        
+        setItems(pageItems);
+        setTotal(filtered.length);
         setPage(p);
+        
         if (scroll && topRef.current) {
           topRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      } catch {
+      } catch (err) {
+        console.error(err);
         setItems([]);
       } finally {
         setLoading(false);

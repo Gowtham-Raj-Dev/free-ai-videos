@@ -1,7 +1,7 @@
 import { getLatest } from "@/lib/videos";
 import { siteConfig, absoluteUrl } from "@/lib/seo";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 function escape(s: string) {
   return s

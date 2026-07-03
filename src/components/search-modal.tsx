@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Search, X, TrendingUp, Loader2 } from "lucide-react";
 import type { VideoMeta } from "@/types";
 import { formatCompact } from "@/lib/utils";
+import { getCatalog, filterVideos } from "./paginated-grid";
 
 const TRENDING = [
   "cinematic",
@@ -63,12 +64,11 @@ export function SearchModal() {
     setLoading(true);
     const t = setTimeout(async () => {
       try {
-        const res = await fetch(
-          `/api/videos?q=${encodeURIComponent(q)}&limit=12`,
-        );
-        const data = await res.json();
-        setResults(data.items);
-      } catch {
+        const allVideos = await getCatalog();
+        const filtered = filterVideos(allVideos, { q });
+        setResults(filtered.slice(0, 12));
+      } catch (err) {
+        console.error(err);
         setResults([]);
       } finally {
         setLoading(false);

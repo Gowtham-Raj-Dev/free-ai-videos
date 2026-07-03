@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Eye, Download, Calendar, Clock, HardDrive, Tag } from "lucide-react";
-import { getVideoById, getRelatedVideos } from "@/lib/videos";
+import { getVideoById, getRelatedVideos, getAllVideos } from "@/lib/videos";
 import { VideoPlayer } from "@/components/video-player";
 import { VideoActions, StickyDownloadBar } from "@/components/video-actions";
 import { VideoGrid } from "@/components/video-grid";
@@ -16,7 +16,11 @@ import {
 } from "@/lib/seo";
 import { formatCompact, formatBytes, formatDuration, formatDate } from "@/lib/utils";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return getAllVideos().map((v) => ({ id: v.id }));
+}
 
 export async function generateMetadata({
   params,

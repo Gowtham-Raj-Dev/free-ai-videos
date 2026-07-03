@@ -11,13 +11,7 @@ function useDownload(video: VideoMeta) {
   const [loading, setLoading] = useState(false);
   const { push } = useHistory();
 
-  // A plain anchor — NOT a blob. The browser (or a download manager) fetches
-  // `/api/download/<id>.mp4` directly; the server responds with
-  // `Content-Disposition: attachment; filename="….mp4"`, and the URL itself
-  // ends in `.mp4`, so the file always saves as a real mp4 no matter how it's
-  // named. The earlier blob approach handed download managers a `blob:` URL
-  // whose UUID became the filename (no extension).
-  const href = `/api/download/${video.id}.mp4`;
+  const href = video.src;
   const filename = `${slugify(video.title)}-${video.id.slice(0, 8)}.mp4`;
 
   // fires on click without preventing the native download
