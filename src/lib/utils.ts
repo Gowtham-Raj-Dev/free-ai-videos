@@ -69,3 +69,9 @@ export function slugify(str: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
+
+export function assetPath(path: string): string {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "/free-ai-videos";
+  if (!path.startsWith("/")) return path;
+  return `${base}${path}`;
+}

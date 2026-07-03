@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useRecent } from "@/hooks/use-collection";
+import { assetPath } from "@/lib/utils";
 
 export function VideoPlayer({
   id,
@@ -40,7 +41,7 @@ export function VideoPlayer({
     <div className="relative overflow-hidden rounded-3xl glass">
       <video
         ref={ref}
-        src={poster ? src : `${src}#t=0.5`}
+        src={poster ? assetPath(src) : `${assetPath(src)}#t=0.5`}
         poster={poster}
         // show a real frame on mobile (which won't paint one from preload)
         onLoadedMetadata={(e) => {

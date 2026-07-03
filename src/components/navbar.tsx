@@ -9,7 +9,7 @@ import { MobileMenu } from "./mobile-menu";
 import { CategoryIcon } from "./category-icon";
 import { openSearch } from "./search-modal";
 import { NAV_CATEGORIES } from "@/lib/categories";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 const MAIN_LINKS = [
   { href: "/", label: "Home" },
@@ -39,7 +39,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:h-16 sm:px-6">
         <a href="/" className="flex items-center gap-2 font-bold">
-          <img src="/favicon.ico" alt="AIVideos Logo" className="h-8 w-8 object-contain" />
+          <img src={assetPath("/favicon.ico")} alt="AIVideos Logo" className="h-8 w-8 object-contain" />
           <span className="text-lg tracking-tight">
             AI<span className="gradient-text">Videos</span>
           </span>

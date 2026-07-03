@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Download, Eye, Heart, Play } from "lucide-react";
 import type { VideoMeta } from "@/types";
-import { cn, formatCompact, formatDuration } from "@/lib/utils";
+import { cn, formatCompact, formatDuration, assetPath } from "@/lib/utils";
 import { useFavorites } from "@/hooks/use-collection";
 
 
@@ -94,7 +94,7 @@ export function VideoCard({
             <video
               ref={videoRef}
               // media fragment hints the start frame; we also seek explicitly
-              src={`${video.src}#t=0.5`}
+              src={`${assetPath(video.src)}#t=0.5`}
               muted
               loop
               playsInline

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { CategoryIcon } from "./category-icon";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 const MAIN_LINKS = [
   { href: "/", label: "Home" },
@@ -48,7 +48,7 @@ export function MobileMenu() {
         <div className="fixed inset-0 z-[100] flex flex-col bg-app">
           <div className="flex h-14 items-center justify-between border-b border-app px-4 sm:h-16 sm:px-6">
             <a href="/" className="flex items-center gap-2 font-bold">
-              <img src="/favicon.ico" alt="AIVideos Logo" className="h-8 w-8 object-contain" />
+              <img src={assetPath("/favicon.ico")} alt="AIVideos Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg tracking-tight">
                 AI<span className="gradient-text">Videos</span>
               </span>

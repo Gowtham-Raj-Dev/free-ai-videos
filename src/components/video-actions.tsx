@@ -5,13 +5,13 @@ import { Download, Heart, Share2, Link2, Check, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import type { VideoMeta } from "@/types";
 import { useFavorites, useHistory } from "@/hooks/use-collection";
-import { cn, slugify } from "@/lib/utils";
+import { cn, slugify, assetPath } from "@/lib/utils";
 
 function useDownload(video: VideoMeta) {
   const [loading, setLoading] = useState(false);
   const { push } = useHistory();
 
-  const href = video.src;
+  const href = assetPath(video.src);
   const filename = `${slugify(video.title)}-${video.id.slice(0, 8)}.mp4`;
 
   // fires on click without preventing the native download

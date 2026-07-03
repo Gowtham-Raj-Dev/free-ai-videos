@@ -1,6 +1,7 @@
 // import Link from "next/link";
 import { Sparkles } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
+import { assetPath } from "@/lib/utils";
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-1">
             <a href="/" className="flex items-center gap-2 font-bold">
-              <img src="/favicon.ico" alt="AIVideos Logo" className="h-8 w-8 object-contain" />
+              <img src={assetPath("/favicon.ico")} alt="AIVideos Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg tracking-tight">
                 AI<span className="gradient-text">Videos</span>
               </span>
