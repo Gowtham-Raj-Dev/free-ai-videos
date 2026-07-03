@@ -37,7 +37,24 @@ jobs:
         run: npm ci
 
       - name: Build Next.js app
+        env:
+          NEXT_PUBLIC_VIDEO_HOST: https://cdn.jsdelivr.net/gh/Gowtham-Raj-Dev/free-ai-videos@main/public
         run: npm run build
+
+      - name: Clean up large video files from build output
+        run: |
+          rm -rf ./out/Ai-Animal-Videos
+          rm -rf ./out/Ai-Miniature-Reels
+          rm -rf ./out/Ai-Tech-Reels
+          rm -rf ./out/Car-Reels
+          rm -rf ./out/Funny-Fails-Clips
+          rm -rf ./out/Luxury-Reels-Bundle
+          rm -rf ./out/Satisfying-Reels
+          rm -rf ./out/Study-Reels
+          rm -rf ./out/Super-Hero-Videos
+          rm -rf ./out/Tools-Tips-Reels
+          rm -rf ./out/emotional
+          rm -rf ./out/nature
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

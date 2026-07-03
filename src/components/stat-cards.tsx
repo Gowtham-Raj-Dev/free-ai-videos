@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Film, Eye, Download, Flame, TrendingUp, Folder } from "lucide-react";
 import type { PlatformStats } from "@/types";
 import { Counter } from "./counter";
-import { formatCompact } from "@/lib/utils";
+import { formatCompact, assetPath } from "@/lib/utils";
 
 export function StatCards({ stats }: { stats: PlatformStats }) {
   const primary = [
@@ -97,7 +97,7 @@ function SpotlightCard({
     >
       <Link href={`/video/${id}`} className="flex items-center gap-3">
         <video
-          src={src}
+          src={assetPath(src)}
           muted
           autoPlay
           loop

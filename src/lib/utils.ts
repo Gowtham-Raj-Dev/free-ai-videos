@@ -73,5 +73,28 @@ export function slugify(str: string): string {
 export function assetPath(path: string): string {
   const base = process.env.NEXT_PUBLIC_BASE_PATH || "/free-ai-videos";
   if (!path.startsWith("/")) return path;
+
+  if (process.env.NEXT_PUBLIC_VIDEO_HOST) {
+    const segments = path.split("/").filter(Boolean);
+    const firstSegment = segments[0];
+    const isVideoFolder = firstSegment && (
+      firstSegment.startsWith("Ai-") ||
+      firstSegment === "Car-Reels" ||
+      firstSegment === "Funny-Fails-Clips" ||
+      firstSegment === "Luxury-Reels-Bundle" ||
+      firstSegment === "Satisfying-Reels" ||
+      firstSegment === "Study-Reels" ||
+      firstSegment === "Super-Hero-Videos" ||
+      firstSegment === "Tools-Tips-Reels" ||
+      firstSegment === "emotional" ||
+      firstSegment === "nature"
+    );
+
+    if (isVideoFolder) {
+      const host = process.env.NEXT_PUBLIC_VIDEO_HOST.replace(/\/+$/, "");
+      return `${host}${path}`;
+    }
+  }
+
   return `${base}${path}`;
 }

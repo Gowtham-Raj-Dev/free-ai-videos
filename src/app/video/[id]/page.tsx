@@ -14,7 +14,7 @@ import {
   breadcrumbSchema,
   absoluteUrl,
 } from "@/lib/seo";
-import { formatCompact, formatBytes, formatDuration, formatDate } from "@/lib/utils";
+import { formatCompact, formatBytes, formatDuration, formatDate, assetPath } from "@/lib/utils";
 
 export const dynamic = "force-static";
 
@@ -34,7 +34,7 @@ export async function generateMetadata({
     title: `${video.title} | Free AI Video Download by CodeLove (HD)`,
     description: `${video.description} Download this AI generated video for free with no watermark from CodeLove. Perfect for edits, shorts, and creators.`,
     path: `/video/${video.id}`,
-    images: [absoluteUrl(video.src)],
+    images: [absoluteUrl(assetPath(video.src))],
   });
 }
 

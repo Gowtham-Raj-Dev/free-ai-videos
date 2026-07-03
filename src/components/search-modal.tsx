@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, X, TrendingUp, Loader2 } from "lucide-react";
 import type { VideoMeta } from "@/types";
-import { formatCompact } from "@/lib/utils";
+import { formatCompact, assetPath } from "@/lib/utils";
 import { getCatalog, filterVideos } from "./paginated-grid";
 
 const TRENDING = [
@@ -150,7 +150,7 @@ export function SearchModal() {
                     className="flex items-center gap-3 rounded-xl p-2 transition hover:bg-soft"
                   >
                     <video
-                      src={v.src}
+                      src={assetPath(v.src)}
                       muted
                       playsInline
                       preload="metadata"

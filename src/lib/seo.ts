@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { VideoMeta } from "@/types";
+import { assetPath } from "@/lib/utils";
 
 export const siteConfig = {
   name: "AIVideos by CodeLove",
@@ -37,6 +38,9 @@ export const siteConfig = {
 };
 
 export function absoluteUrl(path = "") {
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
   return `${siteConfig.url}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
@@ -147,9 +151,9 @@ export function videoSchema(video: VideoMeta) {
     "@type": "VideoObject",
     name: video.title,
     description: video.description,
-    thumbnailUrl: [absoluteUrl(video.src)],
+    thumbnailUrl: [absoluteUrl(assetPath(video.src))],
     uploadDate: video.uploadDate,
-    contentUrl: absoluteUrl(video.src),
+    contentUrl: absoluteUrl(assetPath(video.src)),
     embedUrl: absoluteUrl(`/video/${video.id}`),
     duration: `PT${video.duration}S`,
     interactionStatistic: [
