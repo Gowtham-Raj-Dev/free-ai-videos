@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
+  output: "export", // Required for GitHub Pages static hosting
+  /* 
+  // Next.js static export does not support custom headers()
   async headers() {
     return [
       {
@@ -17,6 +20,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  */
 };
 
 export default nextConfig;
