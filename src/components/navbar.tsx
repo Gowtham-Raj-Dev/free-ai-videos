@@ -1,6 +1,6 @@
 "use client";
 
-// import Link from "next/link";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Search, Sparkles } from "lucide-react";
@@ -38,18 +38,18 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:h-16 sm:px-6">
-        <a href="/" className="flex items-center gap-2 font-bold">
+        <Link href="/" className="flex items-center gap-2 font-bold">
           <img src={assetPath("/favicon.ico")} alt="AIVideos Logo" className="h-8 w-8 object-contain" />
           <span className="text-lg tracking-tight">
             AI<span className="gradient-text">Videos</span>
           </span>
-        </a>
+        </Link>
 
         <nav className="ml-2 hidden items-center gap-1 md:flex">
           {MAIN_LINKS.map((l) => {
             const active = pathname === l.href;
             return (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 className={cn(
@@ -60,7 +60,7 @@ export function Navbar() {
                 )}
               >
                 {l.label}
-              </a>
+              </Link>
             );
           })}
         </nav>
@@ -89,7 +89,7 @@ export function Navbar() {
             const href = `/${c.slug}`;
             const active = pathname === href;
             return (
-              <a
+              <Link
                 key={c.slug}
                 href={href}
                 className={cn(
@@ -101,7 +101,7 @@ export function Navbar() {
               >
                 <span><CategoryIcon name={c.icon as any} size={14} /></span>
                 {c.name}
-              </a>
+              </Link>
             );
           })}
         </div>

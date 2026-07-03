@@ -1,4 +1,4 @@
-// import Link from "next/link";
+import Link from "next/link";
 import { Sparkles } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { assetPath } from "@/lib/utils";
@@ -9,12 +9,12 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 pb-28 md:pb-12 sm:px-6">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="sm:col-span-2 lg:col-span-1">
-            <a href="/" className="flex items-center gap-2 font-bold">
+            <Link href="/" className="flex items-center gap-2 font-bold">
               <img src={assetPath("/favicon.ico")} alt="AIVideos Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg tracking-tight">
                 AI<span className="gradient-text">Videos</span>
               </span>
-            </a>
+            </Link>
             <p className="mt-3 max-w-xs text-sm text-muted">
               Download premium AI generated videos for free. HD quality, no
               watermark, updated daily.
@@ -40,9 +40,9 @@ export function Footer() {
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-muted lg:block lg:space-y-2">
               {CATEGORIES.filter((c) => c.kind === "folder").map((c) => (
                 <li key={c.slug}>
-                  <a href={`/${c.slug}`} className="hover:text-brand-400">
+                  <Link href={`/${c.slug}`} className="hover:text-brand-400">
                     {c.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -52,22 +52,22 @@ export function Footer() {
             <div>
               <p className="mb-3 text-sm font-semibold">Discover</p>
               <ul className="space-y-2 text-sm text-muted">
-                <li><a href="/videos" className="hover:text-brand-400">Browse All</a></li>
-                <li><a href="/trending-ai-videos" className="hover:text-brand-400">Trending</a></li>
-                <li><a href="/latest-ai-videos" className="hover:text-brand-400">Latest</a></li>
-                <li><a href="/popular-ai-videos" className="hover:text-brand-400">Popular</a></li>
-                <li><a href="/categories" className="hover:text-brand-400">All Categories</a></li>
+                <li><Link href="/videos" className="hover:text-brand-400">Browse All</Link></li>
+                <li><Link href="/trending-ai-videos" className="hover:text-brand-400">Trending</Link></li>
+                <li><Link href="/latest-ai-videos" className="hover:text-brand-400">Latest</Link></li>
+                <li><Link href="/popular-ai-videos" className="hover:text-brand-400">Popular</Link></li>
+                <li><Link href="/categories" className="hover:text-brand-400">All Categories</Link></li>
               </ul>
             </div>
 
             <div>
               <p className="mb-3 text-sm font-semibold">Company</p>
               <ul className="space-y-2 text-sm text-muted">
-                <li><a href="/about" className="hover:text-brand-400">About</a></li>
-                <li><a href="/contact" className="hover:text-brand-400">Contact</a></li>
-                <li><a href="/privacy-policy" className="hover:text-brand-400">Privacy</a></li>
-                <li><a href="/terms-conditions" className="hover:text-brand-400">Terms</a></li>
-                <li><a href="/refund-policy" className="hover:text-brand-400">Refund</a></li>
+                <li><Link href="/about" className="hover:text-brand-400">About</Link></li>
+                <li><Link href="/contact" className="hover:text-brand-400">Contact</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-brand-400">Privacy</Link></li>
+                <li><Link href="/terms-conditions" className="hover:text-brand-400">Terms</Link></li>
+                <li><Link href="/refund-policy" className="hover:text-brand-400">Refund</Link></li>
               </ul>
             </div>
           </div>

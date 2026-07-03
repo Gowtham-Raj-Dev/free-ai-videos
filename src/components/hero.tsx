@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Play, Flame, Sparkles, Download } from "lucide-react";
 import type { VideoMeta } from "@/types";
-import { formatCompact } from "@/lib/utils";
+import { formatCompact, assetPath } from "@/lib/utils";
 
 const themeGradients: Record<string, string> = {
   nature: "from-emerald-950/80 via-teal-950/90 to-slate-950",
@@ -118,7 +118,7 @@ export function Hero({
                   >
                     <div className={`absolute inset-0 bg-gradient-to-br ${themeGradients[v.theme] || "from-slate-900 to-black"}`} />
                     <video
-                      src={`${v.src}#t=0.5`}
+                      src={`${assetPath(v.src)}#t=0.5`}
                       muted
                       loop
                       autoPlay

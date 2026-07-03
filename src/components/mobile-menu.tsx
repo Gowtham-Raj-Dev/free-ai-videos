@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
@@ -47,12 +48,12 @@ export function MobileMenu() {
       {open && (
         <div className="fixed inset-0 z-[100] flex flex-col bg-app">
           <div className="flex h-14 items-center justify-between border-b border-app px-4 sm:h-16 sm:px-6">
-            <a href="/" className="flex items-center gap-2 font-bold">
+            <Link href="/" className="flex items-center gap-2 font-bold">
               <img src={assetPath("/favicon.ico")} alt="AIVideos Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg tracking-tight">
                 AI<span className="gradient-text">Videos</span>
               </span>
-            </a>
+            </Link>
             <button
               onClick={() => setOpen(false)}
               className="flex h-10 w-10 items-center justify-center rounded-full glass text-muted transition hover:text-foreground"
@@ -66,7 +67,7 @@ export function MobileMenu() {
             <nav className="space-y-1 pb-8">
               <p className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-muted">Menu</p>
               {MAIN_LINKS.map((l) => (
-                <a
+                <Link
                   key={l.href}
                   href={l.href}
                   className={cn(
@@ -77,7 +78,7 @@ export function MobileMenu() {
                   )}
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
@@ -85,7 +86,7 @@ export function MobileMenu() {
               <p className="mb-3 px-2 text-xs font-semibold uppercase tracking-wider text-muted">Categories</p>
               <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
                 {CATEGORIES.filter((c) => c.kind === "folder").map((c) => (
-                  <a
+                  <Link
                     key={c.slug}
                     href={`/${c.slug}`}
                     className={cn(
@@ -97,7 +98,7 @@ export function MobileMenu() {
                   >
                     <span className="text-brand-400"><CategoryIcon name={c.icon} size={18} /></span>
                     {c.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </nav>
