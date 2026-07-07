@@ -1,9 +1,13 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   output: "export", // Required for GitHub Pages static hosting
+  basePath: isProd ? '/free-ai-videos' : '',
+  assetPrefix: isProd ? '/free-ai-videos/' : '',
   experimental: {
     workerThreads: false,
     cpus: 1,
