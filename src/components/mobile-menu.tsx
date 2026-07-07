@@ -14,7 +14,7 @@ const MAIN_LINKS = [
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
   { href: "https://bundles.codelove.in/bundles", label: "Bundles" },
-  { href: "https://bundles.codelove.in/profile", label: "Library" },
+  { href: "https://bundles.codelove.in/profile", label: "Profile" },
 ];
 
 export function MobileMenu() {

@@ -18,7 +18,7 @@ const MAIN_LINKS = [
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
   { href: "https://bundles.codelove.in/bundles", label: "Bundles" },
-  { href: "https://bundles.codelove.in/profile", label: "Library" },
+  { href: "https://bundles.codelove.in/profile", label: "Profile" },
 ];
 
 export function Navbar() {
@@ -82,27 +82,6 @@ export function Navbar() {
           </button>
           
           <ThemeToggle />
-
-          {/* User Sign In / Profile Avatar */}
-          {user ? (
-            <a
-              href="https://bundles.codelove.in/profile"
-              className="flex h-9 w-9 items-center justify-center rounded-full gradient-brand text-white font-bold text-sm shadow-md transition hover:scale-105 active:scale-95"
-              title="My Library"
-            >
-              {user.displayName ? user.displayName.slice(0, 1).toUpperCase() : user.email?.slice(0, 1).toUpperCase() || <User size={14} />}
-            </a>
-          ) : (
-            <a
-              href="https://bundles.codelove.in/profile"
-              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 text-xs font-semibold text-muted transition hover:text-foreground hover:bg-white/10"
-            >
-              <LogIn size={14} />
-              <span>Sign In</span>
-            </a>
-          )}
-
-
 
           <MobileMenu />
         </div>
