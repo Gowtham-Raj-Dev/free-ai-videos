@@ -27,7 +27,7 @@ export function VideoPlayer({
     const sent = sessionStorage.getItem(`viewed-${id}`);
     if (!sent) {
       sessionStorage.setItem(`viewed-${id}`, "1");
-      fetch("/api/view", {
+      fetch(assetPath("/api/view"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }),

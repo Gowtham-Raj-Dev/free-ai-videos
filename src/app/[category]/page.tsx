@@ -89,7 +89,12 @@ export default async function CategoryPage({
       <PaginatedGrid
         initial={initial}
         initialTotal={all.length}
-        query={{ category: def.slug }}
+        query={{ 
+          category: def.slug,
+          kind: def.kind,
+          theme: def.theme,
+          categorySort: def.sort,
+        }}
         emptyLabel="No videos in this category yet."
       />
 

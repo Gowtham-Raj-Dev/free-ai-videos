@@ -76,6 +76,14 @@ export function useCollection(key: string, max = 100) {
     [ids, save, max],
   );
 
+  const pushMany = useCallback(
+    (newIds: string[]) => {
+      const filtered = ids.filter((x) => !newIds.includes(x));
+      save([...newIds, ...filtered].slice(0, max));
+    },
+    [ids, save, max],
+  );
+
   const remove = useCallback(
     (id: string) => save(ids.filter((x) => x !== id)),
     [ids, save],
@@ -83,9 +91,10 @@ export function useCollection(key: string, max = 100) {
 
   const clear = useCallback(() => save([]), [save]);
 
-  return { ids, ready, has, toggle, push, remove, clear };
+  return { ids, ready, has, toggle, push, pushMany, remove, clear };
 }
 
 export const useFavorites = () => useCollection("aiv-favorites", 200);
 export const useRecent = () => useCollection("aiv-recent", 40);
 export const useHistory = () => useCollection("aiv-downloads", 100);
+export const usePdfDownloads = () => useCollection("aiv-pdf-downloads", 50);

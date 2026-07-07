@@ -5,6 +5,7 @@ import { Heart, Loader2 } from "lucide-react";
 import type { VideoMeta } from "@/types";
 import { useFavorites } from "@/hooks/use-collection";
 import { VideoCard } from "@/components/video-card";
+import { getCatalog } from "@/components/paginated-grid";
 
 export default function FavoritesPage() {
   const { ids, ready } = useFavorites();
@@ -21,10 +22,10 @@ export default function FavoritesPage() {
     }
 
     setLoading(true);
-    fetch(`/api/videos?ids=${ids.join("|")}&limit=1000`)
-      .then((res) => res.json())
-      .then((data) => {
-        setVideos(data.items || []);
+    getCatalog()
+      .then((allVideos) => {
+        const idSet = new Set(ids);
+        setVideos(allVideos.filter((v) => idSet.has(v.id)));
         setLoading(false);
       })
       .catch(() => {

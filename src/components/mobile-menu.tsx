@@ -13,7 +13,8 @@ const MAIN_LINKS = [
   { href: "/videos", label: "Browse" },
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
-  { href: "/wishlist", label: "Wishlist" },
+  { href: "/bundles", label: "Bundles" },
+  { href: "/profile", label: "Library" },
 ];
 
 export function MobileMenu() {

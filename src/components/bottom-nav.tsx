@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Flame, LayoutGrid, Search, Heart } from "lucide-react";
+import { Home, Flame, LayoutGrid, Search, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { openSearch } from "./search-modal";
 import { cn } from "@/lib/utils";
@@ -12,7 +12,7 @@ const ITEMS = [
   { href: "/trending-ai-videos", label: "Trending", icon: Flame },
   { href: "/", label: "Home", icon: Home },
   { href: "__search", label: "Search", icon: Search },
-  { href: "/favorites", label: "Favorites", icon: Heart },
+  { href: "/profile", label: "Library", icon: User },
 ];
 
 export function BottomNav() {

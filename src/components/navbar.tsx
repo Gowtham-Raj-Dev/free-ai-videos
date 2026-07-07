@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Search, Sparkles } from "lucide-react";
+import { useAuth } from "@/context/auth-context";
+import { Search, Sparkles, User, LogIn } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileMenu } from "./mobile-menu";
 import { CategoryIcon } from "./category-icon";
@@ -16,12 +17,14 @@ const MAIN_LINKS = [
   { href: "/videos", label: "Browse" },
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
-  { href: "/wishlist", label: "Wishlist" },
+  { href: "/bundles", label: "Bundles" },
+  { href: "/profile", label: "Library" },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -77,7 +80,28 @@ export function Navbar() {
               <span className="text-[11px]">⌘</span>K
             </kbd>
           </button>
+          
           <ThemeToggle />
+
+          {/* User Sign In / Profile Avatar */}
+          {user ? (
+            <Link
+              href="/profile"
+              className="flex h-9 w-9 items-center justify-center rounded-full gradient-brand text-white font-bold text-sm shadow-md transition hover:scale-105 active:scale-95"
+              title="My Library"
+            >
+              {user.displayName ? user.displayName.slice(0, 1).toUpperCase() : user.email?.slice(0, 1).toUpperCase() || <User size={14} />}
+            </Link>
+          ) : (
+            <Link
+              href="/profile"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 text-xs font-semibold text-muted transition hover:text-foreground hover:bg-white/10"
+            >
+              <LogIn size={14} />
+              <span>Sign In</span>
+            </Link>
+          )}
+
           <MobileMenu />
         </div>
       </div>

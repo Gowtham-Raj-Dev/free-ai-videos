@@ -71,7 +71,7 @@ export function slugify(str: string): string {
 }
 
 export function assetPath(path: string): string {
-  const base = process.env.NEXT_PUBLIC_BASE_PATH || "/free-ai-videos";
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
   if (!path.startsWith("/")) return path;
 
   if (process.env.NEXT_PUBLIC_VIDEO_HOST) {

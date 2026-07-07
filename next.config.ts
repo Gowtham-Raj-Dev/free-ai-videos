@@ -4,8 +4,6 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   output: "export", // Required for GitHub Pages static hosting
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "/free-ai-videos",
-  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || "/free-ai-videos",
   experimental: {
     workerThreads: false,
     cpus: 1,

@@ -3,18 +3,22 @@ import type { VideoMeta } from "@/types";
 import { assetPath } from "@/lib/utils";
 
 export const siteConfig = {
-  name: "AIVideos by CodeLove",
-  title: "Free AI Videos by CodeLove | 10k+ HD AI Generated Videos",
+  name: "CodeLove AI Videos",
+  title: "Free AI Videos by CodeLove | Best AI Video Downloader",
   description:
-    "Download premium AI generated videos for free from CodeLove. Explore thousands of high-quality Free AI videos — anime, cinematic, nature, sci-fi and more. 100% Free, No watermark, updated daily by CodeLove.",
+    "Download premium AI generated videos for free from CodeLove. Explore thousands of high-quality Free AI videos — anime, cinematic, nature, sci-fi and more. 100% Free, No watermark, created & updated daily by CodeLove.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://aivideos.codelove.in",
   keywords: [
     "CodeLove",
+    "codelove",
+    "codelove.in",
     "CodeLove AI Videos",
-    "Free AI Video Download",
     "Free AI Videos by CodeLove",
-    "AI Video Generator Alternatives",
+    "CodeLove Free Videos",
+    "CodeLove Video Downloader",
+    "Free AI Video Download",
     "Free AI Videos No Watermark",
+    "AI Video Generator Alternatives",
     "Download AI Videos Free",
     "Free AI Stock Footage",
     "Best AI Videos",
@@ -34,6 +38,24 @@ export const siteConfig = {
     "free ai videos for youtube upload",
     "free ai videos for reels upload",
     "free ai videos for instagram upload",
+    "download ai videos",
+    "CodeLove assets",
+    "free ai tools codelove",
+    "CodeLove official ai videos",
+    "Free Videos Bundle Download",
+    "AI Animal Videos Bundle Download",
+    "AI Miniature Reels Bundle Download",
+    "AI Tech Reels Bundle Download",
+    "Car Reels Bundle Download",
+    "Funny Fails Clips Bundle Download",
+    "Luxury Reels Bundle Download",
+    "Satisfying Reels Bundle Download",
+    "Study Reels Bundle Download",
+    "Super Hero Videos Bundle Download",
+    "Tools Tips Reels Bundle Download",
+    "Emotional Videos Bundle Download",
+    "Nature Videos Bundle Download",
+    "Free AI Video Bundles Download"
   ],
 };
 

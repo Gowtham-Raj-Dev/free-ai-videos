@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Loader2, SearchX } from "lucide-react";
 import type { VideoMeta } from "@/types";
 import { VideoCard } from "./video-card";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 const PAGE_SIZE = 20;
 
@@ -13,13 +13,16 @@ export interface GridQuery {
   category?: string;
   sort?: string;
   ids?: string;
+  kind?: string;
+  theme?: string;
+  categorySort?: string;
 }
 
 let cachedCatalog: VideoMeta[] | null = null;
 export async function getCatalog(): Promise<VideoMeta[]> {
   if (cachedCatalog) return cachedCatalog;
   try {
-    const res = await fetch("/api/videos-catalog");
+    const res = await fetch(assetPath("/api/videos-catalog"));
     cachedCatalog = await res.json();
     return cachedCatalog ?? [];
   } catch (err) {
@@ -54,13 +57,21 @@ export function filterVideos(all: VideoMeta[], query: GridQuery): VideoMeta[] {
       .sort((a, b) => b.s - a.s || b.v.score - a.v.score)
       .map((x) => x.v);
   } else if (category) {
-    list = list.filter((v) => v.categorySlug === category);
+    if (query.kind === "all" || query.kind === "sort") {
+      // do not filter by categorySlug for meta categories
+    } else if (query.kind === "theme") {
+      list = list.filter((v) => v.theme === query.theme);
+    } else {
+      list = list.filter((v) => v.categorySlug === category);
+    }
   }
 
   // Sort
   if (!q) {
-    switch (sort) {
+    const activeSort = query.kind === "sort" && query.categorySort ? query.categorySort : sort;
+    switch (activeSort) {
       case "views":
+      case "popular":
         list.sort((a, b) => b.views - a.views);
         break;
       case "downloads":
@@ -70,8 +81,15 @@ export function filterVideos(all: VideoMeta[], query: GridQuery): VideoMeta[] {
         list.sort((a, b) => b.score - a.score);
         break;
       case "latest":
+        list.sort((a, b) => b.uploadDate.localeCompare(a.uploadDate));
+        break;
       default:
-        list.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+        // For folders, default sort by title. For 'all' or 'theme', default to score.
+        if (query.kind === "folder" || (!query.kind && category)) {
+          list.sort((a, b) => a.title.localeCompare(b.title, undefined, { numeric: true }));
+        } else {
+          list.sort((a, b) => b.score - a.score);
+        }
     }
   }
 
@@ -93,7 +111,6 @@ export function PaginatedGrid({
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(initialTotal);
   const [loading, setLoading] = useState(false);
-  const topRef = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
   const queryKey = JSON.stringify(query);
 
@@ -113,8 +130,8 @@ export function PaginatedGrid({
         setTotal(filtered.length);
         setPage(p);
         
-        if (scroll && topRef.current) {
-          topRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (scroll) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       } catch (err) {
         console.error(err);
@@ -153,8 +170,6 @@ export function PaginatedGrid({
 
   return (
     <div>
-      <div ref={topRef} className="scroll-mt-24" />
-
       <div className="relative grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
         {items.map((v, i) => (
           <VideoCard key={v.id} video={v} index={i} priority={i < 4} />

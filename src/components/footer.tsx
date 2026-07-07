@@ -38,13 +38,18 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <p className="mb-3 text-sm font-semibold">Categories</p>
             <ul className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-muted lg:block lg:space-y-2">
-              {CATEGORIES.filter((c) => c.kind === "folder").map((c) => (
+              {CATEGORIES.filter((c) => c.kind === "folder").slice(0, 4).map((c) => (
                 <li key={c.slug}>
                   <Link href={`/${c.slug}`} className="hover:text-brand-400">
                     {c.name}
                   </Link>
                 </li>
               ))}
+              <li className="col-span-2 lg:col-span-1 mt-1">
+                <Link href="/categories" className="font-semibold text-brand-400 hover:text-brand-300 hover:underline inline-flex items-center gap-1">
+                  All Categories
+                </Link>
+              </li>
             </ul>
           </div>
 
