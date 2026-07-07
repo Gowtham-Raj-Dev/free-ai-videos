@@ -13,8 +13,8 @@ const MAIN_LINKS = [
   { href: "/videos", label: "Browse" },
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
-  { href: "/bundles", label: "Bundles" },
-  { href: "/profile", label: "Library" },
+  { href: "https://bundles.codelove.in/bundles", label: "Bundles" },
+  { href: "https://bundles.codelove.in/profile", label: "Library" },
 ];
 
 export function MobileMenu() {

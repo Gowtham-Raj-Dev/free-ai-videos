@@ -26,13 +26,13 @@ function DownloadLimitModal({ isOpen, onClose, isLoggedIn }: { isOpen: boolean; 
         </p>
         <div className="flex flex-col gap-3">
           {isLoggedIn ? (
-            <Link href="/bundles" onClick={onClose} className="w-full py-3 rounded-full gradient-brand text-white font-semibold">
+            <a href="https://bundles.codelove.in/bundles" onClick={onClose} className="w-full py-3 rounded-full gradient-brand text-white font-semibold">
               Get Bundles
-            </Link>
+            </a>
           ) : (
-            <Link href="/profile" onClick={onClose} className="w-full py-3 rounded-full gradient-brand text-white font-semibold">
+            <a href="https://bundles.codelove.in/profile" onClick={onClose} className="w-full py-3 rounded-full gradient-brand text-white font-semibold">
               Login
-            </Link>
+            </a>
           )}
           <button onClick={onClose} className="py-2 text-sm text-muted hover:text-white transition">
             Close
