@@ -17,7 +17,7 @@ const MAIN_LINKS = [
   { href: "/videos", label: "Browse" },
   { href: "/trending-ai-videos", label: "Trending" },
   { href: "/latest-ai-videos", label: "Latest" },
-  { href: "https://bundles.codelove.in/bundles", label: "Bundles" },
+  { href: "https://bundles.codelove.in", label: "Bundles" },
   { href: "https://bundles.codelove.in/profile", label: "Profile" },
 ];
 
@@ -80,7 +80,7 @@ export function Navbar() {
               <span className="text-[11px]">⌘</span>K
             </kbd>
           </button>
-          
+
           <ThemeToggle />
 
           <MobileMenu />
