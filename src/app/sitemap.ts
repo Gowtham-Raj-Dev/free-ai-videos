@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/seo";
 import { CATEGORIES } from "@/lib/categories";
-import { getAllVideos } from "@/lib/videos";
 
 export const dynamic = "force-static";
 
@@ -24,12 +23,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const videoPages: MetadataRoute.Sitemap = getAllVideos().map((v) => ({
-    url: `${base}/video/${v.id}`,
-    lastModified: v.uploadDate,
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
-
-  return [...staticPages, ...categoryPages, ...videoPages];
+  return [...staticPages, ...categoryPages];
 }
